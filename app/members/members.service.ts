@@ -1,20 +1,27 @@
 import { Injectable } from '@angular/core';
-import {Http} from '@angular/http';
-import 'rxjs/Rx'
+import {Http, Response} from '@angular/http';
+//import 'rxjs/Rx'
+import 'rxjs/add/operator/toPromise';
 
 import { Member } from './member';
 import { MEMBERS } from './mock-members';
 
 @Injectable()
 export class MembersService {
-    /*public Server: string = "http://localhost:8080/join?name=";
+    private url = 'http://ec2-54-210-26-202.compute-1.amazonaws.com/members';
 	
-	constructor(private _http: Http){}
+	constructor(private http: Http){}
 	
-	tellMe(name) {
-		return this._http.get(this.Server + name).map(res => res.json());
-	}*/
-	getMembers(): Member[] {
-		return MEMBERS;
+	getMembers(): Promise<Member[]> {		
+		return this.http.get(this.url)
+					.toPromise()
+					.then(response => response.json() as Member[])
+					.catch(this.handleError);
 	}
+	
+	private handleError(error: any): Promise<any> {
+		console.log('An error occurred', error);
+		return Promise.reject(error.message || error);
+	}
+	
 }

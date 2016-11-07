@@ -63,8 +63,8 @@ export class StoryComponent {
 	word_count = 0;
 	aestheticMode = false;
 	
-	charlie = new Member("Charlie", "#00AA00");
-	dan = new Member("Dan", "#5566EE");
+	charlie = new Member(0, "Charlie", "#00AA00");
+	dan = new Member(1, "Dan", "#5566EE");
 	
 	story = new Story("My Story","Once upon a time..", 
 						[

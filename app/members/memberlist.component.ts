@@ -4,7 +4,6 @@ import { OnInit } from '@angular/core';
 import { Member } from './member';
 import { MembersService } from './members.service';
 
-
 @Component({
 	selector: 'member-list',
 	template: `				
@@ -12,6 +11,7 @@ import { MembersService } from './members.service';
 					<li class="list-group-item" [style.color]="member.color">
 						<span class="glyphicon glyphicon-user"></span>
 						<strong>{{member.name}}</strong>
+						
 					</li>
 				</ul>
 			  `
@@ -20,16 +20,15 @@ import { MembersService } from './members.service';
 export class MemberListComponent {
 	members: Member[];
   
-	constructor(memberService: MembersService) {
-		this.members = memberService.getMembers();
-	}
+	constructor(private memberService: MembersService) {}
   
 	ngOnInit(): void {
-		this.getMembers()
+		this.getMembers();
 	}
   
-	getMembers(): Member[] {
-		return this.members;
+	getMembers(): void {
+		this.memberService
+			.getMembers()
+			.then(members => this.members = members);
 	}
-  
 }

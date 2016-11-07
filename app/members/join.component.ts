@@ -44,7 +44,7 @@ import { Member } from './member';
 export class JoinComponent { 
 	submitted = false;
 	
-	member = new Member("New User","#000000");
+	member = new Member(0,"New User","#000000");
 	
 	onSubmit() { this.submitted = true;  }
 	

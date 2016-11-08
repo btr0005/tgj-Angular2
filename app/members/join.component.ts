@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 import { Member } from './member';
+import { MembersService } from './members.service';
 
 @Component({
   moduleId: module.id,
@@ -10,13 +11,14 @@ import { Member } from './member';
 
 export class JoinComponent { 
 	submitted = false;
-	
 	member = new Member(0,"New User","#000000");
 	
-	onSubmit() { this.submitted = true;  }
+	constructor(private memberService: MembersService) {}
 	
-	newMember() {
-		console.log("New Member: " + this.member.name);
+	onSubmit(): void { this.submitted = true;  }
+	
+	newMember(): void {
+		this.memberService.addMember(this.member.name, this.member.color);
 	}
 }
 

@@ -7,7 +7,7 @@ import { StoryUnit } from './story';
 
 @Injectable()
 export class StoriesService {
-    private url = 'http://ec2-54-175-212-191.compute-1.amazonaws.com/api/stories';
+    private url = 'http://ec2-52-207-233-194.compute-1.amazonaws.com/api/stories';
 	private headers = new Headers({'Content-Type': 'application/json'});
 	
 	constructor(private http: Http){}

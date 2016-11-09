@@ -7,7 +7,7 @@ import { MEMBERS } from './mock-members';
 
 @Injectable()
 export class MembersService {
-    private url = 'http://ec2-54-210-26-202.compute-1.amazonaws.com/members';
+    private url = 'http://ec2-54-163-132-187.compute-1.amazonaws.com/api/members';
 	private headers = new Headers({'Content-Type': 'application/json'});
 	
 	constructor(private http: Http){}

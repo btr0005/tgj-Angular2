@@ -19,6 +19,11 @@ export class StoriesService {
 			.catch(this.handleError);
 	}
 	
+	getStory(id: number): Promise<Story> {
+		return this.getStories()
+				.then(stories => stories.find(story => story.id === id));
+	}
+	
 	addStory(id: number, name: string, per_turn_word_limit: number, text_units: StoryUnit[]): Promise<String> {
 		return this.http
 			.post(this.url, JSON.stringify({

@@ -1,7 +1,8 @@
-import { Component, Input} from '@angular/core';
+import { Component, Input, OnInit} from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
+
 import { Member } from '../members/member';
 import { Story, StoryUnit } from './story';
-
 import { StoriesService } from './stories.service';
 
 @Component({
@@ -10,26 +11,28 @@ import { StoriesService } from './stories.service';
   templateUrl: 'story.component.html',
 })
 
-export class StoryComponent { 
+export class StoryComponent implements OnInit { 
+	story: Story;
 	submitted = false;
-	new_text = "";
-	word_count = 0;
 	aestheticMode = false;
+	new_text = "";
 	
-	constructor(private storiesService: StoriesService) {}
+	constructor(private storiesService: StoriesService,
+					private route: ActivatedRoute) {}
 	
 	onSubmit() { 
 		this.submitted = true; 
 	}
 	
-	newStory(): void {
-		this.storiesService.addStory(this.story.id,
-									 this.story.name, 
-									 this.story.per_turn_word_limit,
-									 this.story.text_units);
+	ngOnInit(): void {
+		this.route.params.forEach((params: Params) => {
+		   let id = +params['id'];
+		   this.storiesService.getStory(id)
+				.then(story => this.story = story);
+		});
 	}
 	
-	aestheticModeToggle(){
+	aestheticModeToggle(): void {
 		if (this.aestheticMode) {
 			this.aestheticMode = false;
 		}
@@ -38,23 +41,18 @@ export class StoryComponent {
 		}
 	}
 	
-	isTextValid() {
-		return (this.new_text.trim().split(" ").length == this.story.per_turn_word_limit);
-	}	
+	isTextValid(): boolean {
 
-	//dummy data
-	charlie = new Member(0, "Charlie", "#00AA00");
-	dan = new Member(1, "Dan", "#5566EE");
+		return (this.enteredWordsMeetThePerTurnWordLimit()
+			 || this.storyHasNoTurnWordLimit());
+	}	
 	
-	story = new Story(1,"My Story", 
-						[
-							new StoryUnit(this.charlie, "Once upon"),
-							new StoryUnit(this.dan, "a time"),
-							new StoryUnit(this.charlie, "there was"),
-							new StoryUnit(this.dan, "a little"),
-							new StoryUnit(this.charlie, "man named"),
-							new StoryUnit(this.dan, "Dan Parker."),
-						], 
-						3);	
+	enteredWordsMeetThePerTurnWordLimit(): boolean {
+		return (this.new_text.trim().split(" ").length == this.story.perTurnWordLimit);
+	}
+	
+	storyHasNoTurnWordLimit(): boolean {
+		return (this.story.perTurnWordLimit == 0);
+	}
 }
 

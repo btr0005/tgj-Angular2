@@ -8,7 +8,8 @@ import { StoryListComponent } from './storylist.component';
   imports: [
     RouterModule.forChild([
       { path: 'story',  component: StoryComponent },
-	  { path: 'stories', component: StoryListComponent }
+	  { path: 'stories', component: StoryListComponent },
+	  { path: 'story/:id', component: StoryComponent }
     ])
   ],
   exports: [

@@ -7,7 +7,7 @@ import { MEMBERS } from './mock-members';
 
 @Injectable()
 export class MembersService {
-    private url = 'http://ec2-52-207-233-194.compute-1.amazonaws.com/api/members';
+    private url = 'http://localhost:5555/members';
 	private headers = new Headers({'Content-Type': 'application/json'});
 	
 	constructor(private http: Http){}
@@ -19,11 +19,11 @@ export class MembersService {
 			.catch(this.handleError);
 	}
 	
-	addMember(name: string, color: string): Promise<Member> {
+	addMember(name: string, color: string): Promise<String> {
 		return this.http
 			.post(this.url, JSON.stringify({name: name, color: color}), {headers: this.headers})
 			.toPromise()
-			.then(res => res.json().data)
+			.then(res => res.text())
 			.catch(this.handleError);
 	}
 	

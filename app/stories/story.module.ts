@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { StoryComponent } from './story.component';
 import { StoryListComponent } from './storylist.component';
+import { NewStoryComponent } from './newstory.component';
 import { StoriesService } from './stories.service';
 import { StoryRoutingModule } from './stories-routing.module';
 
@@ -15,7 +16,8 @@ import { StoryRoutingModule } from './stories-routing.module';
 	],
 	declarations: [
 		StoryComponent,
-		StoryListComponent
+		StoryListComponent,
+		NewStoryComponent
 	],
 	providers: [
 		StoriesService

@@ -1,0 +1,22 @@
+<h3>New Story</h3>			
+
+<form>
+	<div class="form-group">
+		<label for="name">Name</label>
+		<input type="text" class="form-control" id="name" 
+			required
+			[(ngModel)]="story.name" name="name"
+			#name="ngModel">
+	</div>
+	<div class="form-group">
+		<label for="perTurnWordLimit">Number of words per turn</label>
+		<input type="text" class="form-control" id="perTurnWordLimit" 
+			required
+			[(ngModel)]="story.perTurnWordLimit" name="perTurnWordLimit"
+			#name="ngModel">
+	</div>
+	<div align="right">
+		<button type="submit" class="btn btn-primary" 
+			(click)="newStory()">Submit</button>
+	</div>
+</form>	

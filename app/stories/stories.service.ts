@@ -24,13 +24,13 @@ export class StoriesService {
 				.then(stories => stories.find(story => story.id === id));
 	}
 	
-	addStory(id: number, name: string, per_turn_word_limit: number, text_units: StoryUnit[]): Promise<String> {
+	addStory(story: Story): Promise<String> {
 		return this.http
 			.post(this.url, JSON.stringify({
-								id: id,
-								name: name, 
-								perTurnWordLimit: per_turn_word_limit,
-								textUnits: text_units
+								id: story.id,
+								name: story.name, 
+								perTurnWordLimit: story.perTurnWordLimit,
+								textUnits: story.textUnits
 								}), {headers: this.headers})
 			.toPromise()
 			.then(res => res.text())
